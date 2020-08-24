@@ -32,7 +32,7 @@ public class Duke {
             if (userCommand.toLowerCase().equals("list")) {
                 //Checks if reminderList is empty
                 if (reminderCount == 0) {
-                    printHorizontalLinesWithText("Doing nothing is hard, you never know when you're done");
+                    printHorizontalLinesWithText("You know you have nothing to do, stop asking me");
                 }
                 //Prints reminders
                 else {
@@ -45,8 +45,13 @@ public class Duke {
                 }
             }
             else {
-                printHorizontalLinesWithText("Added: " + userCommand);
-                reminderList[reminderCount++] = userCommand;
+                if (userCommand.equals("")) {
+                    printHorizontalLinesWithText("Doing nothing is hard, you never know when you're done");
+                }
+                else {
+                    printHorizontalLinesWithText("Added: " + userCommand);
+                    reminderList[reminderCount++] = userCommand;
+                }
             }
             userCommand = in.nextLine();
         }
