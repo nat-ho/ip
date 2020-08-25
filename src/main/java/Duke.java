@@ -24,21 +24,20 @@ public class Duke {
         printHorizontalLinesWithText("Top of the mornin' to ya! Name's Natto" + System.lineSeparator()
                 + "Need a pint, two, or somethin' else?");
 
-        String[] reminderList = new String[100];
-        int reminderCount = 0;
+        Task[] reminderList = new Task[100];
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
         while (!userCommand.equals("bye")) {
             if (userCommand.toLowerCase().equals("list")) {
                 //Checks if reminderList is empty
-                if (reminderCount == 0) {
-                    printHorizontalLinesWithText("You know you have nothing to do, stop asking me");
+                if (Task.getReminderCount() == 0) {
+                    printHorizontalLinesWithText("Got nothing for you, stop asking me");
                 }
                 //Prints reminders
                 else {
                     printHorizontalLines();
-                    for (int i = 0; i < reminderCount; i++) {
-                        System.out.println(i+1 + ". " + reminderList[i]);
+                    for (int i = 0; i < Task.getReminderCount(); i++) {
+                        System.out.println(i+1 + ". " + reminderList[i].getFullTaskInfo());
                     }
                     printHorizontalLines();
                     System.out.print(System.lineSeparator());
@@ -48,9 +47,16 @@ public class Duke {
                 if (userCommand.equals("")) {
                     printHorizontalLinesWithText("Doing nothing is hard, you never know when you're done");
                 }
+                else if (userCommand.toLowerCase().startsWith("done")) {
+                    int reminderNumber = Integer.parseInt(userCommand.substring(5))-1;
+                    reminderList[reminderNumber].setDone();
+                    printHorizontalLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
+                            + System.lineSeparator() + reminderList[reminderNumber].getFullTaskInfo());
+                }
                 else {
-                    printHorizontalLinesWithText("Added: " + userCommand);
-                    reminderList[reminderCount++] = userCommand;
+                    Task t = new Task(userCommand);
+                    printHorizontalLinesWithText("Added that one to the list: " + userCommand);
+                    reminderList[Task.getReminderCount()-1] = t;
                 }
             }
             userCommand = in.nextLine();
