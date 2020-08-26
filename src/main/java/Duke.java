@@ -1,15 +1,15 @@
 import java.util.Scanner;
 
 public class Duke {
-    public static void printHorizontalLines () {
+    public static void printLines() {
         System.out.println("____________________________________________________________");
     }
 
-    public static void printHorizontalLinesWithText (String response) {
-        //Wraps text in between horizontal lines and prints
-        printHorizontalLines();
+    public static void printLinesWithText(String response) {
+        //Prints horizontal lines in between response
+        printLines();
         System.out.println(response);
-        printHorizontalLines();
+        printLines();
         System.out.println();
     }
 
@@ -21,48 +21,49 @@ public class Duke {
                 + "_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"|_|\"\"\"\"\"| \n"
                 + "\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-'\"`-0-0-' \n";
         System.out.println(logo);
-        printHorizontalLinesWithText("Top of the mornin' to ya! Name's Natto" + System.lineSeparator()
+        printLinesWithText("Top of the mornin' to ya! Name's Natto" + System.lineSeparator()
                 + "Need a pint, two, or somethin' else?");
 
-        Task[] reminderList = new Task[100];
+        Task[] tasks = new Task[100];
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
+
         while (!userCommand.equals("bye")) {
             if (userCommand.toLowerCase().equals("list")) {
-                //Checks if reminderList is empty
-                if (Task.getReminderCount() == 0) {
-                    printHorizontalLinesWithText("Got nothing for you, stop asking me");
-                }
-                //Prints reminders
-                else {
-                    printHorizontalLines();
-                    for (int i = 0; i < Task.getReminderCount(); i++) {
-                        System.out.println(i+1 + ". " + reminderList[i].getFullTaskInfo());
+                if (Task.getTaskCount() == 0) {
+                    //Checks if tasks is empty
+                    printLinesWithText("Got nothing for you, stop asking me");
+                } else {
+                    //Prints all tasks
+                    printLines();
+                    for (int i = 0; i < Task.getTaskCount(); i++) {
+                        System.out.println(i+1 + ". " + tasks[i].getFullTaskInfo());
                     }
-                    printHorizontalLines();
+                    printLines();
                     System.out.print(System.lineSeparator());
                 }
-            }
-            else {
+            } else {
                 if (userCommand.equals("")) {
-                    printHorizontalLinesWithText("Doing nothing is hard, you never know when you're done");
-                }
-                else if (userCommand.toLowerCase().startsWith("done")) {
+                    //Checks if user inputs an empty string
+                    printLinesWithText("Doing nothing is hard, you never know when you're done");
+                } else if (userCommand.toLowerCase().startsWith("done")) {
+                    //Marking tasks as done
                     int reminderNumber = Integer.parseInt(userCommand.substring(5))-1;
-                    reminderList[reminderNumber].setDone();
-                    printHorizontalLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
-                            + System.lineSeparator() + reminderList[reminderNumber].getFullTaskInfo());
-                }
-                else {
+                    tasks[reminderNumber].setDone();
+                    printLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
+                            + System.lineSeparator() + tasks[reminderNumber].getFullTaskInfo());
+                } else {
+                    //Include input into tasks
                     Task t = new Task(userCommand);
-                    printHorizontalLinesWithText("Added that one to the list: " + userCommand);
-                    reminderList[Task.getReminderCount()-1] = t;
+                    printLinesWithText("Added that one to the list: " + userCommand);
+                    tasks[Task.getTaskCount()-1] = t;
                 }
             }
             userCommand = in.nextLine();
         }
-        //prints goodbye string after user enters "bye"
-        printHorizontalLinesWithText("What, so everyone's supposed to sleep every night now?"
+
+        //Prints goodbye string after breaking out of loop
+        printLinesWithText("What, so everyone's supposed to sleep every night now?"
                 + System.lineSeparator() + "You realize that nighttime makes up half of all time?");
     }
 }

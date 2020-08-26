@@ -2,12 +2,12 @@ public class Task {
     private String description;
     private boolean isDone;
 
-    private static int reminderCount = 0;
+    private static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        reminderCount++;
+        taskCount++;
     }
 
     public String getStatusIcon() {
@@ -18,8 +18,8 @@ public class Task {
         return this.description;
     }
 
-    public static int getReminderCount() {
-        return reminderCount;
+    public static int getTaskCount() {
+        return taskCount;
     }
 
     public void setDone() {
