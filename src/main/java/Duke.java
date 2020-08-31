@@ -37,7 +37,7 @@ public class Duke {
                     //Prints all tasks
                     printLines();
                     for (int i = 0; i < Task.getTaskCount(); i++) {
-                        System.out.println(i+1 + ". " + tasks[i].getFullTaskInfo());
+                        System.out.println(i+1 + ". " + tasks[i].toString());
                     }
                     printLines();
                     System.out.print(System.lineSeparator());
@@ -51,12 +51,31 @@ public class Duke {
                     int reminderNumber = Integer.parseInt(userCommand.substring(5))-1;
                     tasks[reminderNumber].setDone();
                     printLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
-                            + System.lineSeparator() + tasks[reminderNumber].getFullTaskInfo());
+                            + System.lineSeparator() + tasks[reminderNumber].toString());
                 } else {
-                    //Include input into tasks
-                    Task t = new Task(userCommand);
-                    printLinesWithText("Added that one to the list: " + userCommand);
-                    tasks[Task.getTaskCount()-1] = t;
+                    String[] userInputArr = userCommand.split(" ", 2);
+                    Task task;
+                    switch(userInputArr[0].toLowerCase()) {
+                    case "todo":
+                        task = new ToDo(userInputArr[1]);
+                        tasks[Task.getTaskCount()-1] = task;
+                        break;
+                    case "deadline":
+                        String[] deadlineInput = userInputArr[1].split(" /by ");
+                        task = new Deadline(deadlineInput[0], deadlineInput[1]);
+                        tasks[Task.getTaskCount()-1] = task;
+                        break;
+                    case "event":
+                        String[] eventInput = userInputArr[1].split(" /at ");
+                        task = new Event(eventInput[0], eventInput[1]);
+                        tasks[Task.getTaskCount()-1] = task;
+                        break;
+                    default:
+                        task = new Task(userCommand);
+                        tasks[Task.getTaskCount()-1] = task;
+                        break;
+                    }
+                    printLinesWithText("Added that one to the list: " + task);
                 }
             }
             userCommand = in.nextLine();

@@ -1,8 +1,8 @@
 public class Task {
-    private String description;
-    private boolean isDone;
+    protected String description;
+    protected boolean isDone;
 
-    private static int taskCount = 0;
+    protected static int taskCount = 0;
 
     public Task(String description) {
         this.description = description;
@@ -11,7 +11,8 @@ public class Task {
     }
 
     public String getStatusIcon() {
-        return (isDone ? "[\u2713]" : "[\u2718]"); //return tick or X symbols
+        //return tick or X symbols
+        return (isDone ? "[\u2713]" : "[\u2718]");
     }
 
     public String getDescription() {
@@ -26,7 +27,8 @@ public class Task {
         this.isDone = true;
     }
 
-    public String getFullTaskInfo() {
+    @Override
+    public String toString() {
         return this.getStatusIcon() + this.getDescription();
     }
 }
