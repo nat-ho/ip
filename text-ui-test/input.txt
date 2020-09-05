@@ -4,11 +4,20 @@ todo read book
 deadline return book /by Sunday
 event project meeting /at Mon 2-4pm
 list
+todo
+deadline
+deadline nap
+event
+event sleep
 done 2
 done 3
 done 1
 list
 deadline do homework /by no idea :-p
 list
+done
+done 10
+done 1000
+done everything
 done 4
 bye
