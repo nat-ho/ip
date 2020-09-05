@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Duke {
     public static void printLines() {
-        System.out.println("____________________________________________________________");
+        System.out.println("_________________________________________________________________________");
     }
 
     public static void printLinesWithText(String response) {
@@ -31,6 +31,27 @@ public class Duke {
                 + "You realize that nighttime makes up half of all time?");
     }
 
+    private static void printAddTaskSuccess(Task task) {
+        printLinesWithText("Added that one to the list: " + task);
+    }
+
+    private static String printTodoFormat() {
+        return "todo <todo information>";
+    }
+
+    private static String printDeadlineFormat() {
+        return "deadline <deadline name> /by <deadline information>";
+    }
+
+    private static String printEventFormat() {
+        return "event <event name> /at <event information>";
+    }
+
+    private static String printAllTaskFormat() {
+        return printTodoFormat() + System.lineSeparator() + printDeadlineFormat() + System.lineSeparator() +
+                printEventFormat();
+    }
+
     private static void listTasks(Task[] tasks) {
         if (Task.getTaskCount() == 0) {
             //Checks if tasks is empty
@@ -47,37 +68,92 @@ public class Duke {
     }
 
     private static void addTask(Task[] tasks, String userCommand) {
-        String[] userInputArr = userCommand.split(" ", 2);
-        Task task;
-        switch(userInputArr[0].toLowerCase()) {
+        String[] userInputArray = userCommand.split(" ", 2);
+        String taskType = userInputArray[0].toLowerCase();
+
+        switch(taskType) {
         case "todo":
-            task = new ToDo(userInputArr[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            addTodo(tasks, userInputArray);
             break;
         case "deadline":
-            String[] deadlineInput = userInputArr[1].split(" /by ");
-            task = new Deadline(deadlineInput[0], deadlineInput[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            addDeadline(tasks, userInputArray);
             break;
         case "event":
-            String[] eventInput = userInputArr[1].split(" /at ");
-            task = new Event(eventInput[0], eventInput[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            addEvent(tasks, userInputArray);
             break;
         default:
-            task = new Task(userCommand);
-            tasks[Task.getTaskCount()-1] = task;
+            if (userCommand.equals("")) {
+                //Empty line
+                printLinesWithText("Doing nothing is hard, you never know when you're done");
+            } else {
+                //Unrecognised command
+                printLinesWithText("If only I could add \"Read instruction manual\". Regardless, here it is: "
+                        + System.lineSeparator() +  printAllTaskFormat());
+            }
             break;
         }
-        printLinesWithText("Added that one to the list: " + task);
+    }
+
+    private static void addTodo(Task[] tasks, String[] userInputArray) {
+        try {
+            Task task = new ToDo(userInputArray[1]);
+            tasks[Task.getTaskCount()-1] = task;
+            printAddTaskSuccess(task);
+        } catch (IndexOutOfBoundsException e) {
+            //User enters todo without task description
+            printLinesWithText("How about giving that task a name?" + System.lineSeparator() +
+                    printTodoFormat());
+        }
+    }
+
+    private static void addDeadline(Task[] tasks, String[] userInputArray) {
+        try {
+            String[] deadlineInput = userInputArray[1].split(" /by ");
+            Task task = new Deadline(deadlineInput[0], deadlineInput[1]);
+            tasks[Task.getTaskCount()-1] = task;
+            printAddTaskSuccess(task);
+        } catch (IndexOutOfBoundsException e) {
+            printLinesWithText("Unless you get me another pint, I only recognize:" + System.lineSeparator() +
+                    printDeadlineFormat());
+        }
+    }
+
+    private static void addEvent(Task[] tasks, String[] userInputArray) {
+        try {
+            String[] eventInput = userInputArray[1].split(" /at ");
+            Task task = new Event(eventInput[0], eventInput[1]);
+            tasks[Task.getTaskCount()-1] = task;
+            printAddTaskSuccess(task);
+        } catch (IndexOutOfBoundsException e) {
+            printLinesWithText("Unless you download more ram, it's:" + System.lineSeparator() +
+                    printEventFormat());
+
+        }
     }
 
     private static void completeTask(Task[] tasks, String userCommand) {
-        //Marking tasks as done
-        int taskNumber = Integer.parseInt(userCommand.split(" ")[1])-1;
-        tasks[taskNumber].setDone();
-        printLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
-                + System.lineSeparator() + tasks[taskNumber].toString());
+        String[] userInputArray = userCommand.split(" ");
+        try {
+            if (userInputArray.length !=  2) {
+                //User enter wrong format
+                throw new DukeException("How about you take it one at a time. Try: \"done <task number>\"");
+            }
+            int taskNumber = Integer.parseInt(userInputArray[1])-1;
+            tasks[taskNumber].setDone();
+            printLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
+                    + System.lineSeparator() + tasks[taskNumber].toString());
+        } catch (NumberFormatException e) {
+            //User enters string after done
+            printLinesWithText("I'd prefer if you gave me a number");
+        } catch (NullPointerException e) {
+            //User enters non-existing task
+            printLinesWithText("How about you tell me a task that actually exists?");
+        } catch (IndexOutOfBoundsException e) {
+            //User enters number beyond 100 task limit
+            printLinesWithText("Being delusional is thinking you could ever have more than a hundred tasks");
+        } catch (DukeException e) {
+            printLinesWithText(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
@@ -90,9 +166,6 @@ public class Duke {
         while (!userCommand.equals("bye")) {
             if (userCommand.toLowerCase().equals("list")) {
                 listTasks(tasks);
-            } else if (userCommand.equals("")) {
-                //Checks if user inputs an empty string
-                printLinesWithText("Doing nothing is hard, you never know when you're done");
             } else if (userCommand.toLowerCase().startsWith("done")) {
                 completeTask(tasks, userCommand);
             } else {
