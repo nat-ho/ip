@@ -1,3 +1,5 @@
+package duke.task;
+
 public class Task {
     private static int taskCount = 0;
 
