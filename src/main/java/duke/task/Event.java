@@ -12,6 +12,10 @@ public class Event extends Task{
         return this.at;
     }
 
+    public char getType() {
+        return 'E';
+    }
+
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (At: " + getAt() + ")";

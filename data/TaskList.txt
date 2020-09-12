@@ -1,0 +1,4 @@
+T | true | read book
+D | true | return book | Sunday
+T | false | event meeting /at Monday 2-4pm
+T | true | borrow new book

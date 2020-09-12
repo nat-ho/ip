@@ -7,6 +7,10 @@ import duke.task.Task;
 import duke.task.ToDo;
 
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Duke {
     public static void printLines() {
@@ -164,10 +168,100 @@ public class Duke {
         }
     }
 
-    public static void main(String[] args) {
-        printWelcomeMessage();
+    private static void saveTasksToFile(Task[] tasks) {
+        String fileName = "data/TaskList.txt";
+        String directoryName = "data/";
+        File taskFile = new File(fileName);
+        File directoryFile = new File(directoryName);
 
+        if (directoryFile.mkdir()) {
+            printLinesWithText("Directory to store save file created");
+        }
+        try {
+            if (taskFile.createNewFile()){
+               printLinesWithText("Save file for tasks created");
+            }
+            FileWriter fileWriter = new FileWriter(fileName);
+            writeToFile(tasks, fileWriter);
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred - Writing");
+        }
+    }
+
+    private static void writeToFile(Task[] tasks, FileWriter fileWriter) throws IOException {
+        for (int i = 0; i < Task.getTaskCount(); i++) {
+            String textToAdd = generateTextToAddString(tasks[i]);
+            fileWriter.write(textToAdd + System.lineSeparator());
+        }
+    }
+
+    private static String generateTextToAddString(Task task) {
+        switch(task.getType()) {
+        case 'T':
+            return task.getType() + " | " + task.isDone() + " | " + task.getDescription();
+        case 'D':
+            Deadline d = (Deadline) task;
+            return d.getType() + " | " + d.isDone() + " | " + d.getDescription() + " | " + d.getBy();
+        case 'E':
+            Event e = (Event) task;
+            return e.getType() + " | " + e.isDone() + " | " + e.getDescription() + " | " + e.getAt();
+        default:
+            return "Unrecognized type!";
+        }
+    }
+
+    private static void loadSaveData(Task[] tasks) {
+        String fileName = "data/TaskList.txt";
+        File taskFile = new File(fileName);
+
+        try {
+            if (taskFile.exists()) {
+                Scanner reader = new Scanner(taskFile);
+                readSaveData(tasks, reader);
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred");
+        }
+    }
+
+    private static void addSavedTask(Task[] tasks, Task t, String status) {
+        if (status.equals("true")) {
+            t.setDone();
+        }
+        tasks[Task.getTaskCount()-1] = t;
+    }
+
+    private static void readSaveData(Task[] tasks, Scanner reader) {
+        while (reader.hasNextLine()) {
+            String data = reader.nextLine();
+            String[] taskInfoArray = data.split(" \\| ");
+
+            switch (taskInfoArray[0]) {
+            case "T":
+                ToDo t = new ToDo(taskInfoArray[2]);
+                addSavedTask(tasks, t, taskInfoArray[1]);
+                break;
+            case "D":
+                Deadline d = new Deadline(taskInfoArray[2], taskInfoArray[3]);
+                addSavedTask(tasks, d, taskInfoArray[1]);
+                break;
+            case "E":
+                Event e = new Event(taskInfoArray[2], taskInfoArray[3]);
+                addSavedTask(tasks, e, taskInfoArray[1]);
+                break;
+            default:
+                System.out.println("Unrecognized type");
+                break;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
         Task[] tasks = new Task[100];
+        loadSaveData(tasks);
+
+        printWelcomeMessage();
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
 
@@ -176,8 +270,10 @@ public class Duke {
                 listTasks(tasks);
             } else if (userCommand.toLowerCase().startsWith("done")) {
                 completeTask(tasks, userCommand);
+                saveTasksToFile(tasks);
             } else {
                 addTask(tasks, userCommand);
+                saveTasksToFile(tasks);
             }
             userCommand = in.nextLine();
         }

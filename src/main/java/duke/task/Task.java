@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
     private static int taskCount = 0;
 
     private String description;
@@ -28,6 +28,12 @@ public class Task {
     public void setDone() {
         isDone = true;
     }
+
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public abstract char getType();
 
     @Override
     public String toString() {
