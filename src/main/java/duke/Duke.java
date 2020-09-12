@@ -172,11 +172,25 @@ public class Duke {
 
     private static void deleteTask(ArrayList<Task> tasks, String userCommand) {
         String[] userInputArray = userCommand.split(" ");
-        int taskNumber = Integer.parseInt(userInputArray[1])-1;
-        Task taskToRemove = tasks.get(taskNumber);
-        tasks.remove(taskNumber);
-        Task.reduceTaskCount();
-        printDeleteTaskSuccess(taskToRemove);
+        try {
+            if (userInputArray.length !=  2) {
+                //User enter wrong format
+                throw new DukeException("How about you take it one at a time. Try: \"delete <task number>\"");
+            }
+            int taskNumber = Integer.parseInt(userInputArray[1])-1;
+            Task taskToRemove = tasks.get(taskNumber);
+            tasks.remove(taskNumber);
+            Task.reduceTaskCount();
+            printDeleteTaskSuccess(taskToRemove);
+        } catch (NumberFormatException e) {
+            //User enters string after done
+            printLinesWithText("I'd prefer if you gave me a number");
+        } catch (IndexOutOfBoundsException e) {
+            //User enters non-existing task
+            printLinesWithText("How about you tell me a task that actually exists?");
+        } catch (DukeException e) {
+            printLinesWithText(e.getMessage());
+        }
     }
 
     public static void main(String[] args) {
