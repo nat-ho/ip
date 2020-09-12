@@ -12,6 +12,10 @@ public class Deadline extends Task{
         return this.by;
     }
 
+    public char getType() {
+        return 'D';
+    }
+
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (By: " + getBy() + ")";
