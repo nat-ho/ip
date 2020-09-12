@@ -25,6 +25,10 @@ public class Task {
         return taskCount;
     }
 
+    public static void reduceTaskCount() {
+        taskCount--;
+    }
+
     public void setDone() {
         isDone = true;
     }

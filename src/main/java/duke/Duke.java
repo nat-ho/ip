@@ -6,6 +6,7 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.ToDo;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -43,6 +44,14 @@ public class Duke {
         printLinesWithText("Added that one to the list: " + task);
     }
 
+    private static void printDeleteTaskSuccess(Task task) {
+        printLines();
+        System.out.println("You've removed the task but not my disappointment:" + System.lineSeparator()
+                + task.toString()  + "  -------->" + "deleted");
+        System.out.println("You've got " + Task.getTaskCount() + " more tasks to delete instead of complete");
+        printLines();
+    }
+
     private static String printTodoFormat() {
         return "todo <todo information>";
     }
@@ -60,22 +69,22 @@ public class Duke {
                 printEventFormat();
     }
 
-    private static void listTasks(Task[] tasks) {
+    private static void listTasks(ArrayList<Task> tasks) {
         if (Task.getTaskCount() == 0) {
             //Checks if tasks is empty
             printLinesWithText("Got nothing for you, stop asking me");
         } else {
             //Prints all tasks
             printLines();
-            for (int i = 0; i < Task.getTaskCount(); i++) {
-                System.out.println(i+1 + ". " + tasks[i].toString());
+            for (Task task : tasks) {
+                System.out.println(tasks.indexOf(task)+1 + ". " + task.toString());
             }
             printLines();
             System.out.print(System.lineSeparator());
         }
     }
 
-    private static void addTask(Task[] tasks, String userCommand) {
+    private static void addTask(ArrayList<Task> tasks, String userCommand) {
         String[] userInputArray = userCommand.split(" ", 2);
         String taskType = userInputArray[0].toLowerCase();
 
@@ -102,10 +111,10 @@ public class Duke {
         }
     }
 
-    private static void addTodo(Task[] tasks, String[] userInputArray) {
+    private static void addTodo(ArrayList<Task> tasks, String[] userInputArray) {
         try {
             Task task = new ToDo(userInputArray[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            tasks.add(task);
             printAddTaskSuccess(task);
         } catch (IndexOutOfBoundsException e) {
             //User enters todo without task description
@@ -114,11 +123,11 @@ public class Duke {
         }
     }
 
-    private static void addDeadline(Task[] tasks, String[] userInputArray) {
+    private static void addDeadline(ArrayList<Task> tasks, String[] userInputArray) {
         try {
             String[] deadlineInput = userInputArray[1].split(" /by ");
             Task task = new Deadline(deadlineInput[0], deadlineInput[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            tasks.add(task);
             printAddTaskSuccess(task);
         } catch (IndexOutOfBoundsException e) {
             printLinesWithText("Unless you get me another pint, I only recognize:" + System.lineSeparator() +
@@ -126,11 +135,11 @@ public class Duke {
         }
     }
 
-    private static void addEvent(Task[] tasks, String[] userInputArray) {
+    private static void addEvent(ArrayList<Task> tasks, String[] userInputArray) {
         try {
             String[] eventInput = userInputArray[1].split(" /at ");
             Task task = new Event(eventInput[0], eventInput[1]);
-            tasks[Task.getTaskCount()-1] = task;
+            tasks.add(task);
             printAddTaskSuccess(task);
         } catch (IndexOutOfBoundsException e) {
             printLinesWithText("Unless you download more ram, it's:" + System.lineSeparator() +
@@ -139,7 +148,7 @@ public class Duke {
         }
     }
 
-    private static void completeTask(Task[] tasks, String userCommand) {
+    private static void completeTask(ArrayList<Task> tasks, String userCommand) {
         String[] userInputArray = userCommand.split(" ");
         try {
             if (userInputArray.length !=  2) {
@@ -147,18 +156,38 @@ public class Duke {
                 throw new DukeException("How about you take it one at a time. Try: \"done <task number>\"");
             }
             int taskNumber = Integer.parseInt(userInputArray[1])-1;
-            tasks[taskNumber].setDone();
+            tasks.get(taskNumber).setDone();
             printLinesWithText("Well aren't you Mr Productive! Checked it off for you:"
-                    + System.lineSeparator() + tasks[taskNumber].toString());
+                    + System.lineSeparator() + tasks.get(taskNumber).toString());
         } catch (NumberFormatException e) {
             //User enters string after done
             printLinesWithText("I'd prefer if you gave me a number");
-        } catch (NullPointerException e) {
+        } catch (IndexOutOfBoundsException e) {
             //User enters non-existing task
             printLinesWithText("How about you tell me a task that actually exists?");
+        } catch (DukeException e) {
+            printLinesWithText(e.getMessage());
+        }
+    }
+
+    private static void deleteTask(ArrayList<Task> tasks, String userCommand) {
+        String[] userInputArray = userCommand.split(" ");
+        try {
+            if (userInputArray.length !=  2) {
+                //User enter wrong format
+                throw new DukeException("How about you take it one at a time. Try: \"delete <task number>\"");
+            }
+            int taskNumber = Integer.parseInt(userInputArray[1])-1;
+            Task taskToRemove = tasks.get(taskNumber);
+            tasks.remove(taskNumber);
+            Task.reduceTaskCount();
+            printDeleteTaskSuccess(taskToRemove);
+        } catch (NumberFormatException e) {
+            //User enters string after done
+            printLinesWithText("I'd prefer if you gave me a number");
         } catch (IndexOutOfBoundsException e) {
-            //User enters number beyond 100 task limit
-            printLinesWithText("Being delusional is thinking you could ever have more than a hundred tasks");
+            //User enters non-existing task
+            printLinesWithText("How about you tell me a task that actually exists?");
         } catch (DukeException e) {
             printLinesWithText(e.getMessage());
         }
@@ -167,7 +196,8 @@ public class Duke {
     public static void main(String[] args) {
         printWelcomeMessage();
 
-        Task[] tasks = new Task[100];
+        //Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         Scanner in = new Scanner(System.in);
         String userCommand = in.nextLine();
 
@@ -176,6 +206,8 @@ public class Duke {
                 listTasks(tasks);
             } else if (userCommand.toLowerCase().startsWith("done")) {
                 completeTask(tasks, userCommand);
+            } else if (userCommand.toLowerCase().startsWith("delete")) {
+                deleteTask(tasks, userCommand);
             } else {
                 addTask(tasks, userCommand);
             }
