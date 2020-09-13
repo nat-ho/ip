@@ -180,11 +180,7 @@ public class Duke {
                 //User enter wrong format
                 throw new DukeException("How about you take it one at a time. Try: \"delete <task number>\"");
             }
-            int taskNumber = Integer.parseInt(userInputArray[1])-1;
-            Task taskToRemove = tasks.get(taskNumber);
-            tasks.remove(taskNumber);
-            Task.reduceTaskCount();
-            printDeleteTaskSuccess(taskToRemove);
+            removeTaskFromList(tasks, userInputArray[1]);
         } catch (NumberFormatException e) {
             //User enters string after done
             printLinesWithText("I'd prefer if you gave me a number");
@@ -196,9 +192,17 @@ public class Duke {
         }
     }
 
+    private static void removeTaskFromList(ArrayList<Task> tasks, String s) {
+        int taskNumber = Integer.parseInt(s)-1;
+        Task taskToRemove = tasks.get(taskNumber);
+        tasks.remove(taskNumber);
+        Task.reduceTaskCount();
+        printDeleteTaskSuccess(taskToRemove);
+    }
+
     private static void saveTasksToFile(ArrayList<Task> tasks) {
-        String fileName = "data/TaskList.txt";
-        String directoryName = "data/";
+        final String fileName = "data/TaskList.txt";
+        final String directoryName = "data/";
         File taskFile = new File(fileName);
         File directoryFile = new File(directoryName);
 
