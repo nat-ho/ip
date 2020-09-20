@@ -1,15 +1,12 @@
 package duke.task;
 
 public abstract class Task {
-    private static int taskCount = 0;
-
     private String description;
     private boolean isDone;
 
     public Task(String description) {
         this.description = description;
         isDone = false;
-        taskCount++;
     }
 
     public String getStatusIcon() {
@@ -19,14 +16,6 @@ public abstract class Task {
 
     public String getDescription() {
         return this.description;
-    }
-
-    public static int getTaskCount() {
-        return taskCount;
-    }
-
-    public static void reduceTaskCount() {
-        taskCount--;
     }
 
     public void setDone() {
