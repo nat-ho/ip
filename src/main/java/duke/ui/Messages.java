@@ -1,5 +1,8 @@
 package duke.ui;
 
+/**
+ * Contains Duke's output response to user
+ */
 public class Messages {
     // Welcome and Goodbye messages
     public static final String DIVIDER_LINE = "____________________________________________" +
@@ -20,6 +23,7 @@ public class Messages {
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Well aren't you Mr Productive! Checked it off for ya:";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "You've removed the task but not my disappointment:";
 
+    //Command format
     public static final String TODO_FORMAT = "todo <todo information>";
     public static final String DEADLINE_FORMAT = "deadline <deadline name> /by <deadline information>";
     public static final String EVENT_FORMAT = "event <event name> /at <event information>";

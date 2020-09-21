@@ -7,6 +7,9 @@ import duke.task.TaskList;
 import duke.ui.Messages;
 import duke.ui.UI;
 
+/**
+ * Adds a Deadline task into TaskList
+ */
 public class AddDeadlineCommand extends Command{
     private Deadline deadline;
     public static final String COMMAND_WORD = "deadline";
@@ -15,6 +18,12 @@ public class AddDeadlineCommand extends Command{
             System.lineSeparator() + Messages.DEADLINE_FORMAT;
     private static final String DEADLINE_DELIMITER = " /by ";
 
+    /**
+     * Constructor for command AddDeadlineCommand.
+     *
+     * @param userInput deadline arguments provided by user
+     * @throws DukeException if wrong arguments provided by user
+     */
     public AddDeadlineCommand(String userInput) throws DukeException {
         try {
             String[] deadlineDetails = userInput.split(DEADLINE_DELIMITER);

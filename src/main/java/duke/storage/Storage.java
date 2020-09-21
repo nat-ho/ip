@@ -9,6 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * File operation including loading and saving data
+ */
 public class Storage {
     private static File file;
 
@@ -27,11 +30,23 @@ public class Storage {
     private static final String TASK_IDENTIFIER_EVENT = "E";
     private static final String TASK_STATUS_COMPLETE = "true";
 
+    /**
+     * Creates a Storage object with save data filepath.
+     * Saving and loading operation of tasks
+     *
+     * @param filePath filepath of save data
+     */
     public Storage(String filePath) {
         filePath = filePath.replace(FORWARD_SLASH, File.separator).replace(BACKSLASH, File.separator);
         file = new File(filePath);
     }
 
+    /**
+     * Creates directory and save file if not created.
+     * Loads data from save file into Duke during startup.
+     *
+     * @param tasks TaskList object used to store Tasks
+     */
     public static void loadSaveData(TaskList tasks) {
         try {
             if (!file.getParentFile().exists()) {
@@ -57,13 +72,12 @@ public class Storage {
         }
     }
 
-    private static void addToCurrentTasks(TaskList tasks, Task task, String status) {
-        if (status.equals(TASK_STATUS_COMPLETE)) {
-            task.setDone();
-        }
-        tasks.add(task);
-    }
-
+    /**
+     * Parse save data file and creates respective tasks.
+     *
+     * @param tasks TaskList object used to store Tasks
+     * @throws FileNotFoundException
+     */
     private static void readSavedData(TaskList tasks) throws FileNotFoundException {
         Scanner reader = new Scanner(file);
         while(reader.hasNextLine()) {
@@ -89,6 +103,43 @@ public class Storage {
         }
     }
 
+    /**
+     * Adds task created into TaskList.
+     *
+     * @param tasks TaskList object used to store Tasks
+     * @param task Task object to be added into the list
+     * @param status String containing completion status of the task
+     */
+    private static void addToCurrentTasks(TaskList tasks, Task task, String status) {
+        if (status.equals(TASK_STATUS_COMPLETE)) {
+            task.setDone();
+        }
+        tasks.add(task);
+    }
+
+    /**
+     * Saves current list of tasks into save file.
+     *
+     * @param tasks TaskList object containing list of tasks currently in Duke
+     */
+    public static void saveTasksToTile(TaskList tasks) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            for (Task task : tasks.getTaskList()) {
+                fileWriter.write(parseTaskToSaveFormat(task) + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch(IOException e) {
+            System.out.println(MESSAGE_WRITE_FILE_ERROR + file.getName());
+        }
+    }
+
+    /**
+     * Parses Task object into String to be saved.
+     *
+     * @param task object in list to be formatted
+     * @return String String representation of a task
+     */
     public static String parseTaskToSaveFormat(Task task) {
         switch(task.getType()) {
         case 'T':
@@ -104,18 +155,6 @@ public class Storage {
                     + e.getDescription() + SAVE_FILE_DELIMITER + e.getAt();
         default:
             return "";
-        }
-    }
-
-    public static void saveTasksToTile(TaskList tasks) {
-        try {
-            FileWriter fileWriter = new FileWriter(file);
-            for (Task task : tasks.getTaskList()) {
-                fileWriter.write(parseTaskToSaveFormat(task) + System.lineSeparator());
-            }
-            fileWriter.close();
-        } catch(IOException e) {
-            System.out.println(MESSAGE_WRITE_FILE_ERROR + file.getName());
         }
     }
 }

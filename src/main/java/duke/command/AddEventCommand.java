@@ -7,6 +7,9 @@ import duke.task.TaskList;
 import duke.ui.Messages;
 import duke.ui.UI;
 
+/**
+ * Adds a Event task into TaskList
+ */
 public class AddEventCommand extends Command{
     private Event event;
     public static final String COMMAND_WORD = "event";
@@ -15,6 +18,12 @@ public class AddEventCommand extends Command{
             + System.lineSeparator() + Messages.EVENT_FORMAT;
     private static final String EVENT_DELIMITER = " /at ";
 
+    /**
+     * Constructor for command AddEventCommand.
+     *
+     * @param userInput event arguments provided by user
+     * @throws DukeException if wrong arguments provided by user
+     */
     public AddEventCommand(String userInput) throws DukeException {
         try {
             String[] eventDetails = userInput.split(EVENT_DELIMITER);

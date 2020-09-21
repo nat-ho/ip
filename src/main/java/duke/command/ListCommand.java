@@ -6,9 +6,11 @@ import duke.task.Task;
 import duke.task.TaskList;
 import duke.ui.UI;
 
+/**
+ * List all tasks from TaskList
+ */
 public class ListCommand extends Command{
     public static final String COMMAND_WORD = "list";
-
     private static final String MESSAGE_EMPTY_TASK_LIST = "Got nothing for you, stop asking me";
 
     @Override
