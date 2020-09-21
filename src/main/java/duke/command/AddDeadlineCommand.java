@@ -9,8 +9,8 @@ import duke.ui.UI;
 
 public class AddDeadlineCommand extends Command{
     private Deadline deadline;
-    public static final String COMMAND_WORD = "deadline";
 
+    public static final String COMMAND_WORD = "deadline";
     private static final String ERROR_MESSAGE_ADD_DEADLINE = "Unless you get me another pint, I only recognize:" +
             System.lineSeparator() + Messages.DEADLINE_FORMAT;
     private static final String DEADLINE_DELIMITER = " /by ";

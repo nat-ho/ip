@@ -9,8 +9,8 @@ import duke.ui.UI;
 
 public class DeleteCommand extends Command{
     private int taskNumber;
-    public static final String COMMAND_WORD = "delete";
 
+    public static final String COMMAND_WORD = "delete";
     private static final String ERROR_MESSAGE_EXCEED_ONE_ARGUMENT = "How about you take it one at a time. Try:"
             + System.lineSeparator() + Messages.DELETE_FORMAT;
     private static final String ERROR_MESSAGE_DELETE_STRING_PROVIDED = "I'd  prefer if you have me a number. Try:"

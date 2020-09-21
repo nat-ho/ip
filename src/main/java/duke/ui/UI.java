@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.task.Task;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -44,9 +45,14 @@ public class UI {
         printTextWithDividerLine(Messages.MESSAGE_COMPLETE_TASK_SUCCESS, task.toString());
     }
 
-    public  void printDeleteTaskSuccess(Task task, int taskCount) {
+    public void printDeleteTaskSuccess(Task task, int taskCount) {
         String taskLeft = "You've got " + taskCount + " more tasks to delete instead of complete";
         printTextWithDividerLine(Messages.MESSAGE_DELETE_TASK_SUCCESS, task.toString(), taskLeft);
+    }
+
+    public void printFindTaskSuccess(String searchResult, UI ui) {
+        printTextWithDividerLine("Sherlock Holmes at your service! It was the butler!" +
+                System.lineSeparator() + "Here are my findings: " + System.lineSeparator() + searchResult);
     }
 
     public void printAllTaskFormat() {

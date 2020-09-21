@@ -9,8 +9,8 @@ import duke.ui.UI;
 
 public class AddToDoCommand extends Command{
     private ToDo  todo;
-    public static final String COMMAND_WORD = "todo";
 
+    public static final String COMMAND_WORD = "todo";
     private static final String ERROR_MESSAGE_ADD_TODO= "How about giving that task a name?" +
             System.lineSeparator() + Messages.TODO_FORMAT;
     private static final String WRITE_FILE_ERROR = "Unable to save tasks to file";
