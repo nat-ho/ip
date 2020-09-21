@@ -14,6 +14,7 @@ public class AddDeadlineCommand extends Command{
     private static final String ERROR_MESSAGE_ADD_DEADLINE = "Unless you get me another pint, I only recognize:" +
             System.lineSeparator() + Messages.DEADLINE_FORMAT;
     private static final String DEADLINE_DELIMITER = " /by ";
+    private static final String WRITE_FILE_ERROR = "Unable to save tasks to file";
 
     public AddDeadlineCommand(String userInput) throws DukeException {
         try {
@@ -27,10 +28,14 @@ public class AddDeadlineCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         tasks.add(deadline);
         ui.printAddTaskSuccess(deadline);
-        storage.saveTasksToTile(tasks);
+        try {
+            storage.saveTasksToTile(tasks);
+        } catch (DukeException e) {
+            throw new DukeException(WRITE_FILE_ERROR);
+        }
     }
 
     @Override
