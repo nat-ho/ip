@@ -50,7 +50,7 @@ public class TaskList {
      *
      * @return ArrayList containing Task objects
      */
-    public  ArrayList<Task> getTaskList() {
+    public ArrayList<Task> getTaskList() {
         return tasks;
     }
 

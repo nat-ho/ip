@@ -16,6 +16,7 @@ public class AddToDoCommand extends Command{
     public static final String COMMAND_WORD = "todo";
     private static final String ERROR_MESSAGE_ADD_TODO= "How about giving that task a name?" +
             System.lineSeparator() + Messages.TODO_FORMAT;
+    private static final String WRITE_FILE_ERROR = "Unable to save tasks to file";
 
     /**
      * Constructor for command AddToDoCommand.
@@ -31,10 +32,14 @@ public class AddToDoCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException{
         tasks.add(todo);
         ui.printAddTaskSuccess(todo);
-        storage.saveTasksToTile(tasks);
+        try {
+            storage.saveTasksToTile(tasks);
+        } catch (DukeException e) {
+            throw new DukeException(WRITE_FILE_ERROR);
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public class Messages {
 
     //Command format
     public static final String TODO_FORMAT = "todo <todo information>";
-    public static final String DEADLINE_FORMAT = "deadline <deadline name> /by <deadline information>";
+    public static final String DEADLINE_FORMAT = "deadline <deadline name> /by <day/month/year hour minutes>";
     public static final String EVENT_FORMAT = "event <event name> /at <event information>";
     public static final String DONE_FORMAT = "done <task number>";
     public static final String DELETE_FORMAT = "delete <task number>";

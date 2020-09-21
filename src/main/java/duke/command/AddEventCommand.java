@@ -17,6 +17,7 @@ public class AddEventCommand extends Command{
     private static final String ERROR_MESSAGE_ADD_EVENT= "Unless you download more ram, it's:"
             + System.lineSeparator() + Messages.EVENT_FORMAT;
     private static final String EVENT_DELIMITER = " /at ";
+    private static final String WRITE_FILE_ERROR = "Unable to save tasks to file";
 
     /**
      * Constructor for command AddEventCommand.
@@ -36,10 +37,14 @@ public class AddEventCommand extends Command{
     }
 
     @Override
-    public void execute(TaskList tasks, UI ui, Storage storage) {
+    public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException{
         tasks.add(event);
         ui.printAddTaskSuccess(event);
-        storage.saveTasksToTile(tasks);
+        try {
+            storage.saveTasksToTile(tasks);
+        } catch (DukeException e) {
+            throw new DukeException(WRITE_FILE_ERROR);
+        }
     }
 
     @Override

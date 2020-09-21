@@ -4,6 +4,9 @@ import duke.command.*;
 import duke.exception.DukeException;
 import duke.ui.Messages;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Parses user input for Duke
  */
@@ -49,5 +52,15 @@ public class Parser {
                 throw new DukeException(ERROR_MESSAGE_UNRECOGNISED_COMMAND);
             }
         }
+    }
+
+    public static LocalDateTime parseStringToDateTime(String dateTimeInput) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTimeInput, formatter);
+    }
+
+    public static String parseDateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter DateTimeToStringFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+        return DateTimeToStringFormatter.format(dateTime);
     }
 }

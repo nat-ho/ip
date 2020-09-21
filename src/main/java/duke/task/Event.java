@@ -24,7 +24,7 @@ public class Event extends Task{
      * @return String containing event information
      */
     public String getAt() {
-        return this.at;
+        return at;
     }
 
     @Override
