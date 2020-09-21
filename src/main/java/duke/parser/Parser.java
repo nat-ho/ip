@@ -4,6 +4,9 @@ import duke.command.*;
 import duke.exception.DukeException;
 import duke.ui.Messages;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
     private static final String ERROR_MESSAGE_BLANK_INPUT = "Doing nothing is hard, you never know when you're done";
     private static final String ERROR_MESSAGE_UNRECOGNISED_COMMAND = "If only I could add \"Read instruction " +
@@ -39,5 +42,15 @@ public class Parser {
                 throw new DukeException(ERROR_MESSAGE_UNRECOGNISED_COMMAND);
             }
         }
+    }
+
+    public static LocalDateTime parseStringToDateTime(String dateTimeInput) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        return LocalDateTime.parse(dateTimeInput, formatter);
+    }
+
+    public static String parseDateTimeToString(LocalDateTime dateTime) {
+        DateTimeFormatter DateTimeToStringFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+        return DateTimeToStringFormatter.format(dateTime);
     }
 }
