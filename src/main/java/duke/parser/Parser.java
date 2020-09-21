@@ -30,6 +30,8 @@ public class Parser {
             return new DeleteCommand(details);
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+        case FindCommand.COMMAND_WORD:
+            return new FindCommand(details);
         case GoodbyeCommand.COMMAND_WORD:
             return new GoodbyeCommand();
         default:

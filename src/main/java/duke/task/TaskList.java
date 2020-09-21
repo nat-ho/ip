@@ -38,7 +38,7 @@ public class TaskList {
         }
     }
 
-    public static int getTaskCount() {
+    public int getTaskCount() {
         return tasks.size();
     }
 }
