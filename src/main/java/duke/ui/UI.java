@@ -1,6 +1,7 @@
 package duke.ui;
 
 import duke.task.Task;
+import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -85,7 +86,7 @@ public class UI {
      * @param task Task object that was deleted from the list
      * @param taskCount integer containing number of tasks remaining
      */
-    public  void printDeleteTaskSuccess(Task task, int taskCount) {
+    public void printDeleteTaskSuccess(Task task, int taskCount) {
         String taskLeft = "You've got " + taskCount + " more tasks to delete instead of complete";
         printTextWithDividerLine(Messages.MESSAGE_DELETE_TASK_SUCCESS, task.toString(), taskLeft);
     }
@@ -96,5 +97,10 @@ public class UI {
     public void printAllTaskFormat() {
         printTextWithDividerLine(Messages.TODO_FORMAT, Messages.DEADLINE_FORMAT,
                 Messages.EVENT_FORMAT);
+    }
+
+    public void printFindTaskSuccess(String searchResult, UI ui) {
+        printTextWithDividerLine("Sherlock Holmes at your service! It was the butler!" +
+                System.lineSeparator() + "Here are my findings: " + System.lineSeparator() + searchResult);
     }
 }

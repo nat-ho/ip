@@ -29,7 +29,8 @@ public class Messages {
     public static final String EVENT_FORMAT = "event <event name> /at <event information>";
     public static final String DONE_FORMAT = "done <task number>";
     public static final String DELETE_FORMAT = "delete <task number>";
+    public static final String FIND_FORMAT = "find <keyword>";
     public static final String ALL_FORMATS = TODO_FORMAT + System.lineSeparator() + DEADLINE_FORMAT +
             System.lineSeparator() + EVENT_FORMAT + System.lineSeparator() + DONE_FORMAT + System.lineSeparator() +
-            DELETE_FORMAT;
+            DELETE_FORMAT + System.lineSeparator() + FIND_FORMAT;
 }

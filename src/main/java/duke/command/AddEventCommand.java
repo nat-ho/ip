@@ -12,8 +12,8 @@ import duke.ui.UI;
  */
 public class AddEventCommand extends Command{
     private Event event;
-    public static final String COMMAND_WORD = "event";
 
+    public static final String COMMAND_WORD = "event";
     private static final String ERROR_MESSAGE_ADD_EVENT= "Unless you download more ram, it's:"
             + System.lineSeparator() + Messages.EVENT_FORMAT;
     private static final String EVENT_DELIMITER = " /at ";
