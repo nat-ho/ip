@@ -1,6 +1,5 @@
 package duke.storage;
 
-import duke.exception.DukeException;
 import duke.task.*;
 import duke.ui.Messages;
 
@@ -13,14 +12,12 @@ import java.util.Scanner;
 public class Storage {
     private static File file;
 
-    public  static final String CREATED_FOLDER = "Data folder created";
-    public  static final String CREATED_SAVE_FILE = "Save file TaskList.txt created";
-    public  static final String CREATE_SAVE_FILE_ERROR = "Error occurred when creating ";
-    public  static final String LOAD_SUCCESS = "Tasks successfully loaded";
-    public  static final String FILE_NOT_FOUND = "TaskList.txt cannot be found";
-    private static final String WRITE_FILE_ERROR = "Unable to write task to file ";
-    private static final String TASK_CREATION_ERROR = "Error occurred when creating task from saved data";
-    private static final String LOAD_DATA_ERROR = "Unable to load saved data";
+    public  static final String MESSAGE_CREATED_FOLDER = "Data folder created";
+    public  static final String MESSAGE_CREATED_SAVE_FILE = "Save file TaskList.txt created";
+    public  static final String MESSAGE_CREATE_SAVE_FILE_ERROR = "Error occurred when creating ";
+    public  static final String MESSAGE_LOAD_SUCCESS = "Tasks successfully loaded";
+    public  static final String MESSAGE_FILE_NOT_FOUND = "TaskList.txt cannot be found";
+    private static final String MESSAGE_WRITE_FILE_ERROR = "Unable to write to file ";
     private static final String BACKSLASH = "\\";
     private static final String FORWARD_SLASH = "/";
     private static final String TASK_IDENTIFIER_DELIMITER = " \\| ";
@@ -35,31 +32,28 @@ public class Storage {
         file = new File(filePath);
     }
 
-    public static void loadSaveData(TaskList tasks) throws DukeException{
+    public static void loadSaveData(TaskList tasks) {
         try {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
-                System.out.println(CREATED_FOLDER);
+                System.out.println(MESSAGE_CREATED_FOLDER);
             }
             if (!file.exists()) {
                 file.createNewFile();
-                System.out.println(CREATED_SAVE_FILE);
+                System.out.println(MESSAGE_CREATED_SAVE_FILE);
                 System.out.println(Messages.DIVIDER_LINE + System.lineSeparator());
             }
         } catch(IOException e) {
-            throw new DukeException(CREATE_SAVE_FILE_ERROR + file.getName());
+            System.out.println(MESSAGE_CREATE_SAVE_FILE_ERROR + file.getName());
         }
 
         try {
-            Scanner reader = new Scanner(file);
-            readSavedData(tasks, reader);
+            readSavedData(tasks);
         } catch(FileNotFoundException e) {
-            throw new DukeException(FILE_NOT_FOUND);
-        } catch (DukeException e) {
-            throw new DukeException(LOAD_DATA_ERROR);
+            System.out.println(MESSAGE_FILE_NOT_FOUND);
         }
         if (tasks.getTaskCount() != 0) {
-            System.out.println(LOAD_SUCCESS);
+            System.out.println(MESSAGE_LOAD_SUCCESS);
         }
     }
 
@@ -70,31 +64,28 @@ public class Storage {
         tasks.add(task);
     }
 
-    private static void readSavedData(TaskList tasks, Scanner reader) throws DukeException {
-        try {
-            while(reader.hasNextLine()) {
-                String data = reader.nextLine();
-                String[] taskInfoArray = data.split(TASK_IDENTIFIER_DELIMITER);
+    private static void readSavedData(TaskList tasks) throws FileNotFoundException {
+        Scanner reader = new Scanner(file);
+        while(reader.hasNextLine()) {
+            String data = reader.nextLine();
+            String[] taskInfoArray = data.split(TASK_IDENTIFIER_DELIMITER);
 
-                switch(taskInfoArray[0].trim()) {
-                case TASK_IDENTIFIER_TODO:
-                    ToDo todo = new ToDo(taskInfoArray[2]);
-                    addToCurrentTasks(tasks, todo, taskInfoArray[1]);
-                    break;
-                case TASK_IDENTIFIER_DEADLINE:
-                    Deadline deadline = new Deadline(taskInfoArray[2], taskInfoArray[3]);
-                    addToCurrentTasks(tasks, deadline, taskInfoArray[1]);
-                    break;
-                case TASK_IDENTIFIER_EVENT:
-                    Event event = new Event(taskInfoArray[2], taskInfoArray[3]);
-                    addToCurrentTasks(tasks, event, taskInfoArray[1]);
-                    break;
-                default:
-                    break;
-                }
+            switch(taskInfoArray[0].trim()) {
+            case TASK_IDENTIFIER_TODO:
+                ToDo todo = new ToDo(taskInfoArray[2]);
+                addToCurrentTasks(tasks, todo, taskInfoArray[1]);
+                break;
+            case TASK_IDENTIFIER_DEADLINE:
+                Deadline deadline = new Deadline(taskInfoArray[2], taskInfoArray[3]);
+                addToCurrentTasks(tasks, deadline, taskInfoArray[1]);
+                break;
+            case TASK_IDENTIFIER_EVENT:
+                Event event = new Event(taskInfoArray[2], taskInfoArray[3]);
+                addToCurrentTasks(tasks, event, taskInfoArray[1]);
+                break;
+            default:
+                break;
             }
-        } catch (DukeException e) {
-            throw new DukeException(TASK_CREATION_ERROR);
         }
     }
 
@@ -116,7 +107,7 @@ public class Storage {
         }
     }
 
-    public static void saveTasksToTile(TaskList tasks) throws DukeException {
+    public static void saveTasksToTile(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(file);
             for (Task task : tasks.getTaskList()) {
@@ -124,7 +115,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch(IOException e) {
-            throw new DukeException(WRITE_FILE_ERROR + file.getName());
+            System.out.println(MESSAGE_WRITE_FILE_ERROR + file.getName());
         }
     }
 }
