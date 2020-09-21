@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 T | true | read book
 D | false | return book | 02/02/2020 0939
 E | false | project meeting | Aug 6th 2-4pm
 T | true | join sports club
 T | false | borrow new book
+=======
+>>>>>>> 46555540b6e6f3358282c07597990d4aa57ce831

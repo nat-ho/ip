@@ -9,7 +9,7 @@ public class Event extends Task{
     }
 
     public String getAt() {
-        return this.at;
+        return at;
     }
 
     public char getType() {

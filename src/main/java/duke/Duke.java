@@ -20,7 +20,11 @@ public class Duke {
 
     public void start() {
         ui.printWelcomeMessage();
-        storage.loadSaveData(tasks);
+        try {
+            storage.loadSaveData(tasks);
+        } catch (DukeException e) {
+            System.out.println(e.getMessage());
+        }
         tasks.printAllTasks(ui);
     }
 
