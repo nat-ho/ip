@@ -7,6 +7,9 @@ import duke.task.TaskList;
 import duke.ui.Messages;
 import duke.ui.UI;
 
+/**
+ * Deletes a task from TaskList
+ */
 public class DeleteCommand extends Command{
     private int taskNumber;
 
@@ -17,14 +20,20 @@ public class DeleteCommand extends Command{
             + System.lineSeparator() + Messages.DELETE_FORMAT;
     private static final String ERROR_MESSAGE_NONEXISTENT_TASK = "How about you tell me a task that actually exists?";
 
-    public DeleteCommand(String userInput) throws DukeException {
-        String[] deleteDetails = userInput.split(" ");
+    /**
+     * Constructor for command DeleteCommand.
+     *
+     * @param taskNumber task number provided by user
+     * @throws DukeException if wrong arguments provided by user
+     */
+    public DeleteCommand(String taskNumber) throws DukeException {
+        String[] deleteDetails = taskNumber.split(" ");
         if (deleteDetails.length != 1) {
             throw new DukeException(ERROR_MESSAGE_EXCEED_ONE_ARGUMENT);
         }
 
         try {
-            taskNumber = Integer.parseInt(userInput) - 1;
+            this.taskNumber = Integer.parseInt(taskNumber) - 1;
         } catch (NumberFormatException e) {
             throw new DukeException(ERROR_MESSAGE_DELETE_STRING_PROVIDED);
         }

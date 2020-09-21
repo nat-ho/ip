@@ -7,11 +7,21 @@ import duke.ui.Messages;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Parses user input for Duke
+ */
 public class Parser {
     private static final String ERROR_MESSAGE_BLANK_INPUT = "Doing nothing is hard, you never know when you're done";
     private static final String ERROR_MESSAGE_UNRECOGNISED_COMMAND = "If only I could add \"Read instruction " +
             "manual\". Regardless, here it is: " + System.lineSeparator() + Messages.ALL_FORMATS;
 
+    /**
+     * Parses user input into command for execution.
+     *
+     * @param userInput input entered by user
+     * @return Command object based on the user input
+     * @throws DukeException unrecognised input or exception caused during command object creation
+     */
     public static Command parse(String userInput) throws DukeException {
         String[] userInputArray = userInput.split(" ", 2);
         if (userInputArray.length != 2) {

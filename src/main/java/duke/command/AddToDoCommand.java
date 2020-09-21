@@ -7,6 +7,9 @@ import duke.task.ToDo;
 import duke.ui.Messages;
 import duke.ui.UI;
 
+/**
+ * Adds a Todo task into TaskList
+ */
 public class AddToDoCommand extends Command{
     private ToDo  todo;
 
@@ -15,6 +18,12 @@ public class AddToDoCommand extends Command{
             System.lineSeparator() + Messages.TODO_FORMAT;
     private static final String WRITE_FILE_ERROR = "Unable to save tasks to file";
 
+    /**
+     * Constructor for command AddToDoCommand.
+     *
+     * @param todoName name of the task provided by user
+     * @throws DukeException if task name is not provided
+     */
     public AddToDoCommand(String todoName) throws DukeException{
         if(todoName.isEmpty()) {
             throw new DukeException(ERROR_MESSAGE_ADD_TODO);
