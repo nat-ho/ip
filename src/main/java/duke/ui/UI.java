@@ -1,7 +1,6 @@
 package duke.ui;
 
 import duke.task.Task;
-import duke.task.TaskList;
 
 import java.util.Scanner;
 
@@ -81,10 +80,10 @@ public class UI {
     }
 
     /**
-     * Prints success message after deleting a task
+     * Prints success message after deleting a task.
      *
      * @param task Task object that was deleted from the list
-     * @param taskCount integer containing number of tasks remaining
+     * @param taskCount Integer containing number of remaining tasks
      */
     public void printDeleteTaskSuccess(Task task, int taskCount) {
         String taskLeft = "You've got " + taskCount + " more tasks to delete instead of complete";
@@ -92,14 +91,11 @@ public class UI {
     }
 
     /**
-     * Prints the list of commands duke accepts.
+     * Prints results of search if any matches were found.
+     *
+     * @param searchResult String containing tasks matching to the keyword if any
      */
-    public void printAllTaskFormat() {
-        printTextWithDividerLine(Messages.TODO_FORMAT, Messages.DEADLINE_FORMAT,
-                Messages.EVENT_FORMAT);
-    }
-
-    public void printFindTaskSuccess(String searchResult, UI ui) {
+    public void printFindTaskSuccess(String searchResult) {
         printTextWithDividerLine("Sherlock Holmes at your service! It was the butler!" +
                 System.lineSeparator() + "Here are my findings: " + System.lineSeparator() + searchResult);
     }

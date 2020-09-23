@@ -7,7 +7,9 @@ import duke.task.TaskList;
 import duke.ui.Messages;
 import duke.ui.UI;
 
-
+/**
+ * Finds tasks in TaskList with a keyword
+ */
 public class FindCommand extends Command{
     private String keyword;
 
@@ -17,6 +19,12 @@ public class FindCommand extends Command{
     private static final String NO_MATCHING_TASKS = "Is your list actually that big you need to search? Try:" +
             System.lineSeparator() + Messages.FIND_FORMAT;
 
+    /**
+     * Constructor for command FindCommand
+     *
+     * @param keyword String provided by user to find related tasks
+     * @throws DukeException if keyword was not entered by user
+     */
     public FindCommand(String keyword) throws DukeException{
         if(keyword.isEmpty()) {
             throw new DukeException(ERROR_MESSAGE_FIND);
@@ -35,7 +43,7 @@ public class FindCommand extends Command{
             }
         }
         if(numberOfMatches > 0) {
-            ui.printFindTaskSuccess(searchResult.trim(), ui);
+            ui.printFindTaskSuccess(searchResult.trim());
         } else {
             throw new DukeException(NO_MATCHING_TASKS);
         }

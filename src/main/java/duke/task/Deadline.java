@@ -1,11 +1,8 @@
 package duke.task;
 
-import duke.exception.DukeException;
 import duke.parser.Parser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -16,8 +13,8 @@ public class Deadline extends Task{
     private String by;
     private LocalDateTime datetime;
 
-    private static final String ERROR_WRONG_DATE_FORMAT = "Date time format error. Try: " + System.lineSeparator() +
-            "<day/month/year hour minutes>  (eg. 21/09/2020 0930)";
+    private static final String DEADLINE_FORMAT_REMINDER = "I can read date and time if you need me to: " +
+            System.lineSeparator() +  "deadline <deadline name> /by <day/month/year hourMinutes>";
 
     /**
      * Creates a Deadline object with description and by.
@@ -32,10 +29,9 @@ public class Deadline extends Task{
         try {
             datetime = Parser.parseStringToDateTime(by);
         } catch (DateTimeParseException e) {
-            //todo include help message to remind date time format to users
-//            throw new DukeException(ERROR_WRONG_DATE_FORMAT);
+            // Stores deadline info as String instead of LocalDateTime
+            System.out.println(DEADLINE_FORMAT_REMINDER);
         }
-        System.out.println(datetime);
     }
 
     /**

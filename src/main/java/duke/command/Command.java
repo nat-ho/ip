@@ -20,7 +20,7 @@ public abstract class Command {
     public abstract void execute(TaskList tasks, UI ui, Storage storage) throws DukeException;
 
     /**
-     * Flag that checks if a command will lead to Duke exiting after execution.
+     * Flag that checks if a command leads to Duke exiting after execution.
      *
      * @return Boolean that returns true if exiting and false if not
      */

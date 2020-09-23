@@ -23,7 +23,7 @@ public class AddEventCommand extends Command{
      * Constructor for command AddEventCommand.
      *
      * @param userInput event arguments provided by user
-     * @throws DukeException if wrong arguments provided by user
+     * @throws DukeException if wrong arguments were provided by user
      */
     public AddEventCommand(String userInput) throws DukeException {
         try {

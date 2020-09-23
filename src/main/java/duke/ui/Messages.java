@@ -23,9 +23,10 @@ public class Messages {
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Well aren't you Mr Productive! Checked it off for ya:";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "You've removed the task but not my disappointment:";
 
-    //Command format
+    //Command formats
     public static final String TODO_FORMAT = "todo <todo information>";
-    public static final String DEADLINE_FORMAT = "deadline <deadline name> /by <day/month/year hour minutes>";
+    public static final String DEADLINE_FORMAT = "deadline <deadline name> /by <day/month/year hourMinutes>" +
+            System.lineSeparator() + "deadline <deadline name> /by <deadline information>";
     public static final String EVENT_FORMAT = "event <event name> /at <event information>";
     public static final String DONE_FORMAT = "done <task number>";
     public static final String DELETE_FORMAT = "delete <task number>";

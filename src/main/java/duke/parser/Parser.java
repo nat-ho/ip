@@ -12,8 +12,8 @@ import java.time.format.DateTimeFormatter;
  */
 public class Parser {
     private static final String ERROR_MESSAGE_BLANK_INPUT = "Doing nothing is hard, you never know when you're done";
-    private static final String ERROR_MESSAGE_UNRECOGNISED_COMMAND = "If only I could add \"Read instruction " +
-            "manual\". Regardless, here it is: " + System.lineSeparator() + Messages.ALL_FORMATS;
+    private static final String ERROR_MESSAGE_UNRECOGNISED_COMMAND = "If only I could add \"Read instruction\"." +
+            "Regardless, here it is: " + System.lineSeparator() + System.lineSeparator() + Messages.ALL_FORMATS;
 
     /**
      * Parses user input into command for execution.
@@ -56,11 +56,23 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses String into a LocalDateTime object.
+     *
+     * @param dateTimeInput String input entered by user
+     * @return Formatted LocalDateTime object of a task
+     */
     public static LocalDateTime parseStringToDateTime(String dateTimeInput) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         return LocalDateTime.parse(dateTimeInput, formatter);
     }
 
+    /**
+     * Parses LocalDateTime object into a formatted String.
+     *
+     * @param dateTime LocalDateTime object of a task
+     * @return Formatted String dateTime of a task
+     */
     public static String parseDateTimeToString(LocalDateTime dateTime) {
         DateTimeFormatter DateTimeToStringFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
         return DateTimeToStringFormatter.format(dateTime);

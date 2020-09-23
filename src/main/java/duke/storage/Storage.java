@@ -34,10 +34,10 @@ public class Storage {
     private static final String TASK_STATUS_COMPLETE = "true";
 
     /**
-     * Creates a Storage object with save data filepath.
+     * Creates a Storage object with the save data filepath.
      * Saving and loading operation of tasks
      *
-     * @param filePath filepath of save data
+     * @param filePath filepath of the save data
      */
     public Storage(String filePath) {
         filePath = filePath.replace(FORWARD_SLASH, File.separator).replace(BACKSLASH, File.separator);
@@ -45,10 +45,10 @@ public class Storage {
     }
 
     /**
-     * Creates directory and save file if not created.
+     * Creates directory and save file if not found.
      * Loads data from save file into Duke during startup.
      *
-     * @param tasks TaskList object used to store Tasks
+     * @param tasks empty TaskList object used to store Tasks
      */
     public static void loadSaveData(TaskList tasks) throws DukeException{
         try {
@@ -77,7 +77,7 @@ public class Storage {
     }
 
     /**
-     * Adds task created into TaskList.
+     * Adds a saved task into TaskList.
      *
      * @param tasks TaskList object used to store Tasks
      * @param task Task object to be added into the list
@@ -91,10 +91,9 @@ public class Storage {
     }
 
     /**
-     * Parse save data file and creates respective tasks.
+     * Parses save data file and creates respective tasks.
      *
      * @param tasks TaskList object used to store Tasks
-     * @throws FileNotFoundException
      */
     private static void readSavedData(TaskList tasks, Scanner reader) {
         while(reader.hasNextLine()) {
@@ -121,10 +120,10 @@ public class Storage {
     }
 
     /**
-     * Parses Task object into String to be saved.
+     * Parses a Task into String to be saved.
      *
-     * @param task object in list to be formatted
-     * @return String String representation of a task
+     * @param task Task to be formatted
+     * @return String formatted String representation of a task
      */
     public static String parseTaskToSaveFormat(Task task) {
         switch(task.getType()) {
@@ -147,7 +146,7 @@ public class Storage {
     /**
      * Saves current list of tasks into save file.
      *
-     * @param tasks TaskList object containing list of tasks currently in Duke
+     * @param tasks TaskList containing all tasks currently in Duke
      */
     public static void saveTasksToTile(TaskList tasks) throws DukeException {
         try {

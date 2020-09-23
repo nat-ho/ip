@@ -23,7 +23,7 @@ public class AddDeadlineCommand extends Command{
      * Constructor for command AddDeadlineCommand.
      *
      * @param userInput deadline arguments provided by user
-     * @throws DukeException if wrong arguments provided by user
+     * @throws DukeException if wrong arguments were provided by user
      */
     public AddDeadlineCommand(String userInput) throws DukeException {
         try {
