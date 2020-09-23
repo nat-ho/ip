@@ -21,19 +21,21 @@ public class Deadline extends Task{
 
     /**
      * Creates a Deadline object with description and by.
+     * Parses String by to a LocalDateTime object if possible
      *
      * @param description description of deadline
-     * @param by task deadline
+     * @param by deadline of task
      */
-    public Deadline(String description, String by) throws DukeException {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
         try {
             datetime = Parser.parseStringToDateTime(by);
         } catch (DateTimeParseException e) {
-            throw new DukeException(ERROR_WRONG_DATE_FORMAT);
+            //todo include help message to remind date time format to users
+//            throw new DukeException(ERROR_WRONG_DATE_FORMAT);
         }
-
+        System.out.println(datetime);
     }
 
     /**
@@ -42,6 +44,7 @@ public class Deadline extends Task{
      * @return String containing deadline information
      */
     public String getBy() {
+        //todo return localdatetime if possible
         return by;
     }
 
@@ -52,6 +55,11 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (By: " + Parser.parseDateTimeToString(datetime) + ")";
+        try {
+            return "[D]" + super.toString() + " (By: " + Parser.parseDateTimeToString(datetime) + ")";
+        } catch (NullPointerException e) {
+            return "[D]" + super.toString() + " (By: " + by + ")";
+        }
+
     }
 }

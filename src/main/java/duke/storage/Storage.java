@@ -70,8 +70,6 @@ public class Storage {
             readSavedData(tasks, reader);
         } catch(FileNotFoundException e) {
             throw new DukeException(FILE_NOT_FOUND);
-        } catch (DukeException e) {
-            throw new DukeException(LOAD_DATA_ERROR);
         }
         if (tasks.getTaskCount() != 0) {
             System.out.println(LOAD_SUCCESS);
@@ -98,31 +96,27 @@ public class Storage {
      * @param tasks TaskList object used to store Tasks
      * @throws FileNotFoundException
      */
-    private static void readSavedData(TaskList tasks, Scanner reader) throws DukeException {
-        try {
-            while(reader.hasNextLine()) {
-                String data = reader.nextLine();
-                String[] taskInfoArray = data.split(TASK_IDENTIFIER_DELIMITER);
+    private static void readSavedData(TaskList tasks, Scanner reader) {
+        while(reader.hasNextLine()) {
+            String data = reader.nextLine();
+            String[] taskInfoArray = data.split(TASK_IDENTIFIER_DELIMITER);
 
-                switch(taskInfoArray[0].trim()) {
-                case TASK_IDENTIFIER_TODO:
-                    ToDo todo = new ToDo(taskInfoArray[2]);
-                    addToCurrentTasks(tasks, todo, taskInfoArray[1]);
-                    break;
-                case TASK_IDENTIFIER_DEADLINE:
-                    Deadline deadline = new Deadline(taskInfoArray[2], taskInfoArray[3]);
-                    addToCurrentTasks(tasks, deadline, taskInfoArray[1]);
-                    break;
-                case TASK_IDENTIFIER_EVENT:
-                    Event event = new Event(taskInfoArray[2], taskInfoArray[3]);
-                    addToCurrentTasks(tasks, event, taskInfoArray[1]);
-                    break;
-                default:
-                    break;
-                }
+            switch(taskInfoArray[0].trim()) {
+            case TASK_IDENTIFIER_TODO:
+                ToDo todo = new ToDo(taskInfoArray[2]);
+                addToCurrentTasks(tasks, todo, taskInfoArray[1]);
+                break;
+            case TASK_IDENTIFIER_DEADLINE:
+                Deadline deadline = new Deadline(taskInfoArray[2], taskInfoArray[3]);
+                addToCurrentTasks(tasks, deadline, taskInfoArray[1]);
+                break;
+            case TASK_IDENTIFIER_EVENT:
+                Event event = new Event(taskInfoArray[2], taskInfoArray[3]);
+                addToCurrentTasks(tasks, event, taskInfoArray[1]);
+                break;
+            default:
+                break;
             }
-        } catch (DukeException e) {
-            throw new DukeException(TASK_CREATION_ERROR);
         }
     }
 

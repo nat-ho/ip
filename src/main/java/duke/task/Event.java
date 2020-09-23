@@ -8,7 +8,7 @@ public class Event extends Task{
     private String at;
 
     /**
-     * Creates an Event object with description and by.
+     * Creates an Event object with description and at.
      *
      * @param description description of event
      * @param at event information

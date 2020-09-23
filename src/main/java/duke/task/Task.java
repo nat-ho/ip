@@ -10,7 +10,7 @@ public abstract class Task {
     /**
      * Creates a Task object given a description.
      *
-     * @param description
+     * @param description String description of a task
      */
     public Task(String description) {
         this.description = description;
@@ -18,7 +18,7 @@ public abstract class Task {
     }
 
     /**
-     * Returns status of a task in the form of an icon.
+     * Returns status of task in the form of an icon.
      *
      * @return tick(unicode 2713) if completed and cross(unicode 2718) if incomplete
      */

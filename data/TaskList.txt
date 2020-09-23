@@ -1,6 +1,6 @@
-T | true | read book
-T | true | read book
-D | false | return book | 02/02/2020 0939
-E | false | project meeting | Aug 6th 2-4pm
-T | true | join sports club
-T | false | borrow new book
+T | false | read book
+D | false | return book | 31/12/2020 0900
+E | false | project meeting | Zoom 2-4pm
+T | false | join sports club
+D | false | finish homework | no idea :/
+D | false | cook dinner for family | 23/09/2020 1700

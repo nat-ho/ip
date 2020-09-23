@@ -11,7 +11,7 @@ public class TaskList {
     private static ArrayList<Task> tasks;
 
     /**
-     * Creates an empty TaskList object.
+     * Creates an empty TaskList object used to store tasks.
      */
     public TaskList() {
         tasks = new ArrayList<Task>();
@@ -29,16 +29,16 @@ public class TaskList {
     /**
      * Deletes a Task object from the list.
      *
-     * @param taskNumber integer identifying a specific task
+     * @param taskNumber integer identifying a specific task in the list
      */
     public void deleteTask(int taskNumber) {
         tasks.remove(taskNumber);
     }
 
     /**
-     * Return a specific Task object from the list.
+     * Returns a specific Task object from the list.
      *
-     * @param taskNumber integer identifying a specific task
+     * @param taskNumber integer identifying a specific task in the list
      * @return Task object
      */
     public Task getTask(int taskNumber) {
