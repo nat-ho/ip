@@ -15,10 +15,12 @@ Duke is a simple command line application that helps you track day to day tasks
     * Change Windows default code page to UTF-8 with ```chcp 65001```
     * Run the command ```java -Dfile.encoding=UTF-8 -jar Duke.jar```
 
+
 5. **Linux and macOS Users**
     * Launch Terminal
     * Navigate to the directory where the Duke application is located
     * Run the command ```java -jar Duke.jar```
+
 
 6. Duke will startup, and you should see the following welcome text:
 
