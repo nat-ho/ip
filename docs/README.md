@@ -18,7 +18,9 @@ Duke is a simple command line application that helps you track day to day tasks
     * Navigate to the directory where the Duke application is located
     * Run the command ```java -jar Duke.jar```
 
-6. Duke will startup, and you should see the following welcome text
+
+6. Duke will startup, and you should see the following welcome text:
+
     ```
     _________________________________________________________________________
       _  _     ___    _____   _____    ___
@@ -37,6 +39,7 @@ Duke is a simple command line application that helps you track day to day tasks
 8. Refer to the usage guide below for a more detailed explanation on Duke's command list
 
 
+
 ## Features 
 
 ### Task Manager
@@ -44,6 +47,7 @@ Duke manages a list of tasks that can be added to, deleted, checked off, and als
 
 ### Persistent Data
 Any changes to the task list will be saved in a file locally which will be loaded on Duke's startup 
+
 
 
 ## Usage
@@ -69,6 +73,7 @@ You've got 1 remaining tasks
 _________________________________________________________________________
 ```
 
+
 ### Adding a Deadline task - `deadline`
 
 Adds a deadline task to the task list with completion status as false. 
@@ -92,6 +97,7 @@ You've got 2 remaining tasks
 _________________________________________________________________________
 ```
 
+
 ### Adding an Event task - `event`
 
 Adds an event task to the task list with completion status as false. 
@@ -112,6 +118,7 @@ Added that one to the list:
 You've got 3 remaining tasks
 _________________________________________________________________________
 ```
+
 
 ### Listing all tasks - `list`
 
@@ -134,6 +141,7 @@ _________________________________________________________________________
 _________________________________________________________________________
 ```
 
+
 ### Marking a task as done - `done`
 
 Marks a task's completion status as done. 
@@ -153,6 +161,7 @@ Well aren't you Mr Productive! Checked it off for ya:
 [T][✓]throw out the trash
 _________________________________________________________________________
 ```
+
 
 ### Deleting a task - `delete`
 
@@ -175,6 +184,7 @@ You've got 2 more tasks to delete instead of complete
 _________________________________________________________________________
 ```
 
+
 ### Finding a task - `find`
 
 Finds and displays all task that contains the search keyword. 
@@ -195,6 +205,7 @@ Here are my findings:
 1. [E][✘]table tennis training (At: OCBC Arena Monday 0930)
 _________________________________________________________________________
 ```
+
 
 ### Exiting Duke - `bye`
 
