@@ -3,25 +3,18 @@ Duke is a simple command line application that helps you track day to day tasks
 
 ## Duke Quick Start
 1. Ensure that **Java 11** or above is installed on your computer
-
 2. Head over [here](https://github.com/nat-ho/ip/releases) to download the latest release of Duke
-
 3. Move the JAR file to your desired location, preferably in an empty folder
-
 4. **Windows Users**
     * Launch Command Line
     * Right click on the Command prompt title bar, select properties and change the font to NSimSun
     * Navigate to the directory where the Duke application is located
     * Change Windows default code page to UTF-8 with ```chcp 65001```
     * Run the command ```java -Dfile.encoding=UTF-8 -jar Duke.jar```
-
-
 5. **Linux and macOS Users**
     * Launch Terminal
     * Navigate to the directory where the Duke application is located
     * Run the command ```java -jar Duke.jar```
-
-
 6. Duke will startup, and you should see the following welcome text:
 
     ```
@@ -37,9 +30,8 @@ Duke is a simple command line application that helps you track day to day tasks
     Need a pint, two, or somethin' else?
     _________________________________________________________________________
     ```
-   
-7. You can now enter commands for Duke to execute. 
 
+7. You can now enter commands for Duke to execute. 
 8. Refer to the usage guide below for a more detailed explanation on Duke's command list
 
 
