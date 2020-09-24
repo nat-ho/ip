@@ -3,7 +3,9 @@ Duke is a simple command line application that helps you track day to day tasks
 
 ## Duke Quick Start
 1. Ensure that **Java 11** or above is installed on your computer
+
 2. Head over [here](https://github.com/nat-ho/ip/releases) to download the latest release of Duke
+
 3. Move the JAR file to your desired location, preferably in an empty folder
 
 4. **Windows Users**
@@ -33,6 +35,7 @@ Duke is a simple command line application that helps you track day to day tasks
     Need a pint, two, or somethin' else?
     _________________________________________________________________________
     ```
+   
 7. You can now enter commands for Duke to execute. 
 
 8. Refer to the usage guide below for a more detailed explanation on Duke's command list
@@ -41,12 +44,11 @@ Duke is a simple command line application that helps you track day to day tasks
 
 ## Features 
 
-### Task Manager
-Duke manages a list of tasks that can be added to, deleted, checked off, and also provides a search feature
+#### Task Manager
+Duke manages a list of tasks that can be added to, deleted, checked off, and also provides a search function
 
-### Persistent Data
+#### Persistent Data
 Any changes to the task list will be saved in a file locally which will be loaded on Duke's startup 
-
 
 
 ## Usage
@@ -186,7 +188,7 @@ _________________________________________________________________________
 
 ### Finding a task - `find`
 
-Finds and displays all task that contains the search keyword. 
+Finds and displays all tasks that contains the search keyword. 
 
 **Command:** 
 
