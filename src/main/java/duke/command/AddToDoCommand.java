@@ -34,7 +34,7 @@ public class AddToDoCommand extends Command{
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException{
         tasks.add(todo);
-        ui.printAddTaskSuccess(todo);
+        ui.printAddTaskSuccess(todo, tasks.getTaskCount());
         try {
             storage.saveTasksToTile(tasks);
         } catch (DukeException e) {

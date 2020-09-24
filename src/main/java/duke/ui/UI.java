@@ -66,8 +66,9 @@ public class UI {
      *
      * @param task Task object that was added to Duke
      */
-    public void printAddTaskSuccess(Task task) {
-        printTextWithDividerLine(Messages.MESSAGE_ADD_TASK_SUCCESS + task);
+    public void printAddTaskSuccess(Task task, int taskCount) {
+        String taskLeft = "You've got " + taskCount + " remaining tasks";
+        printTextWithDividerLine(Messages.MESSAGE_ADD_TASK_SUCCESS, task.toString() , taskLeft);
     }
 
     /**

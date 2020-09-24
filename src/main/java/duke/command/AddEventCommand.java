@@ -39,7 +39,7 @@ public class AddEventCommand extends Command{
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException{
         tasks.add(event);
-        ui.printAddTaskSuccess(event);
+        ui.printAddTaskSuccess(event, tasks.getTaskCount());
         try {
             storage.saveTasksToTile(tasks);
         } catch (DukeException e) {

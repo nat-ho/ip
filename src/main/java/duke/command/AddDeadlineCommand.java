@@ -39,7 +39,7 @@ public class AddDeadlineCommand extends Command{
     @Override
     public void execute(TaskList tasks, UI ui, Storage storage) throws DukeException {
         tasks.add(deadline);
-        ui.printAddTaskSuccess(deadline);
+        ui.printAddTaskSuccess(deadline, tasks.getTaskCount());
         try {
             storage.saveTasksToTile(tasks);
         } catch (DukeException e) {

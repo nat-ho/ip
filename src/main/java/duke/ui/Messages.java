@@ -22,6 +22,7 @@ public class Messages {
     public static final String MESSAGE_ADD_TASK_SUCCESS = "Added that one to the list: ";
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Well aren't you Mr Productive! Checked it off for ya:";
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "You've removed the task but not my disappointment:";
+    public static final String MESSAGE_TASKS_REMAINING = "You have a total of ";
 
     //Command formats
     public static final String TODO_FORMAT = "todo <todo information>";
